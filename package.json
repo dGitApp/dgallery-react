@@ -1,29 +1,105 @@
 {
   "name": "dgallery-react",
-  "version": "1.0.0",
-  "description": "dGit NFTs gallery",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "dGit - NFT Gallery - Display NFTs owned by a specific address using Opensea API",
+  "license": "MIT",
+  "author": "stemerlini",
+  "main": "dist/index.js",
+  "module": "dist/react-nft-gallery.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "https://github.com/bkrem/react-nft-gallery",
+  "bugs": {
+    "url": "https://github.com/bkrem/react-nft-gallery/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bkrem/react-nft-gallery.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "release": "np",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "author": "stemerlini",
-  "license": "ISC",
+  "engines": {
+    "node": ">=12"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/dgallery-react.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/dgallery-react.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "ethereum",
+    "web3",
+    "nft",
+    "gallery",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "react": ">=16"
+  },
   "dependencies": {
-    "@types/react": "^17.0.41",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typescript": "^4.6.2"
+    "@storybook/addon-postcss": "^2.0.0",
+    "css-loader": "^6.7.1",
+    "react-intersection-observer": "^8.32.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/core": "^7.14.8",
+    "@size-limit/preset-small-lib": "^5.0.2",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-interactions": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
-    "babel-loader": "^8.2.3"
+    "@tailwindcss/postcss7-compat": "^2.2.7",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
+    "autoprefixer": "^9",
+    "babel-loader": "^8.2.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "np": "^7.5.0",
+    "postcss": "^8.3.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.0",
+    "size-limit": "^5.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
   }
 }
