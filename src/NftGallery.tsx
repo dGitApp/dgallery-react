@@ -35,6 +35,14 @@ export interface NftGalleryProps {
   metadataIsVisible?: boolean;
 
   /**
+   *  Transfer Options available
+   *  Activate P2P trading features
+   *  default to 'true'
+   */
+
+   transferModeOn?: boolean;
+
+  /**
    * Display gallery in dark mode.
    * Defaults to `false`.
    */
@@ -103,6 +111,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({
   openseaApiKey = '',
   darkMode = false,
   metadataIsVisible = true,
+  transferModeOn = true,
   showcaseMode = false,
   showcaseItemIds,
   hasLightbox = true,
@@ -285,6 +294,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({
                       index={index}
                       asset={asset}
                       metadataIsVisible={metadataIsVisible}
+                      transferModeOn = {transferModeOn}
                       hasLightbox={hasLightbox}
                       setLightboxIndex={setLightboxIndex}
                       increaseLightboxIndex={increaseLightboxIndex}

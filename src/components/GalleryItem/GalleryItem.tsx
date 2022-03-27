@@ -21,6 +21,7 @@ export interface GalleryItemProps {
   asset: OpenseaAsset;
   index: number;
   metadataIsVisible: NftGalleryProps['metadataIsVisible'];
+  transferModeOn: NftGalleryProps['transferModeOn']
   hasLightbox: NftGalleryProps['hasLightbox'];
   setLightboxIndex: (nextIndex: number) => void;
   increaseLightboxIndex: () => void;
@@ -34,6 +35,7 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
   asset,
   index,
   metadataIsVisible,
+  transferModeOn,
   hasLightbox,
   setLightboxIndex,
   increaseLightboxIndex,
@@ -91,21 +93,17 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
   return (
     <article
       style={itemContainerStyle}
-      className="rnftg-item rnftg-rounded-2xl rnftg-transition rnftg-duration-300"
+      className="rnftg-item"
     >
-      <div style={imgContainerStyle} className="rnftg-item__img-wrapper">
         {metadataIsVisible && asset.collection.image_url &&  (
-          <a
-            href={`https://opensea.io/collection/${asset.collection.slug}`}
-          >
-              <img
+            <img
                 src={asset.collection.image_url}
                 alt={asset.collection.name}
                 className="rnftg-item-collection-logo rnftg-w-16 rnftg-h-16 rnftg-rounded-full rnftg-flex rnftg-justify-center rnftg-items-center"
-              />
-          </a>
-            )
+            />
+          )
         }
+      <div className='rnftg-item__img-wrapper'>
         <a
           className="rnftg-no-underline rnftg-text-black dark:rnftg-text-gray-200"
           onClick={() => setLightboxIndex(index)}
@@ -113,8 +111,8 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
         >
           {renderAssetMedia()}
         </a>
-
-        {metadataIsVisible && 
+      </div>
+      {metadataIsVisible && 
           <div className='rnftg-item-title rnftg-break-words rnftg-truncate rnftg-text-lg rnftg-font-semibold rnftg-text-gray-200'> 
             {hasExternalLinks ? (
               <ExternalLink href={asset.permalink}>{assetTitle}</ExternalLink>
@@ -122,7 +120,11 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
             }
           </div>
         }
-      </div>
+      {transferModeOn && 
+        <div>
+
+        </div>
+      }
       
       {hasLightbox && (
         <Lightbox
