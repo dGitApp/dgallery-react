@@ -8,7 +8,7 @@ import './gallery-item.css';
 
 const ExternalLink: React.FC<{ href: string }> = ({ href, children }) => (
   <a
-    className="rnftg-no-underline rnftg-text-black dark:rnftg-text-gray-200"
+    className="rnftg-no-underline rnftg-text-black rnftg-text-gray-200"
     href={href}
     target="_blank"
     rel="noopener"
@@ -64,8 +64,7 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
       return (
         <video
           className={joinClassNames(
-            'rnftg-w-full rnftg-h-full rnftg-object-cover rnftg-cursor-pointer',
-            metadataIsVisible ? 'rnftg-rounded-t-2xl' : 'rnftg-rounded-2xl'
+            'rnftg-w-full rnftg-h-full rnftg-object-cover rnftg-cursor-pointer rnftg-rounded-2xl'
           )}
           src={asset.image_preview_url}
           preload="auto"
@@ -78,24 +77,35 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
     }
 
     return (
-      <img
-        className={joinClassNames(
-          'rnftg-w-full rnftg-h-full rnftg-object-cover rnftg-cursor-pointer',
-          metadataIsVisible ? 'rnftg-rounded-t-2xl' : 'rnftg-rounded-2xl'
-        )}
-        src={asset.image_preview_url}
-        alt={asset.name}
-        loading="lazy"
-      />
+        <img
+          className={joinClassNames(
+            'rnftg-w-full rnftg-h-full rnftg-object-cover rnftg-cursor-pointer rnftg-rounded-2xl'
+          )}
+          src={asset.image_preview_url}
+          alt={asset.name}
+          loading="lazy"
+        />
     );
   };
 
   return (
     <article
       style={itemContainerStyle}
-      className="rnftg-item rnftg-rounded-2xl rnftg-bg-white dark:rnftg-bg-gray-800 rnftg-shadow-lg hover:rnftg-shadow-xl rnftg-transition rnftg-duration-300"
+      className="rnftg-item rnftg-rounded-2xl rnftg-transition rnftg-duration-300"
     >
       <div style={imgContainerStyle} className="rnftg-item__img-wrapper">
+        {metadataIsVisible && asset.collection.image_url &&  (
+          <a
+            href={`https://opensea.io/collection/${asset.collection.slug}`}
+          >
+              <img
+                src={asset.collection.image_url}
+                alt={asset.collection.name}
+                className="rnftg-item-collection-logo rnftg-w-16 rnftg-h-16 rnftg-rounded-full rnftg-flex rnftg-justify-center rnftg-items-center"
+              />
+          </a>
+            )
+        }
         <a
           className="rnftg-no-underline rnftg-text-black dark:rnftg-text-gray-200"
           onClick={() => setLightboxIndex(index)}
@@ -103,39 +113,17 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
         >
           {renderAssetMedia()}
         </a>
-      </div>
-      {metadataIsVisible && (
-        <div className="rnftg-p-4">
-          <div className="rnftg-break-words rnftg-truncate rnftg-text-lg rnftg-font-semibold dark:rnftg-text-gray-200">
+
+        {metadataIsVisible && 
+          <div className='rnftg-item-title rnftg-break-words rnftg-truncate rnftg-text-lg rnftg-font-semibold rnftg-text-gray-200'> 
             {hasExternalLinks ? (
               <ExternalLink href={asset.permalink}>{assetTitle}</ExternalLink>
-            ) : (
-              assetTitle
-            )}
+              ) : (assetTitle)
+            }
           </div>
-          <hr className="rnftg-mx-2 rnftg-my-4 rnftg-border-gray-100 dark:rnftg-border-gray-900" />
-          <div className="rnftg-flex rnftg-items-center">
-            {asset.collection.image_url && (
-              <img
-                src={asset.collection.image_url}
-                alt={asset.collection.name}
-                className="rnftg-w-8 rnftg-h-8 rnftg-mr-2 rnftg-rounded-full"
-              />
-            )}
-            <div className="rnftg-text-sm rnftg-font-semibold rnftg-truncate dark:rnftg-text-gray-200">
-              {hasExternalLinks ? (
-                <ExternalLink
-                  href={`https://opensea.io/collection/${asset.collection.slug}`}
-                >
-                  {asset.collection.name}
-                </ExternalLink>
-              ) : (
-                asset.collection.name
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+        }
+      </div>
+      
       {hasLightbox && (
         <Lightbox
           index={index}

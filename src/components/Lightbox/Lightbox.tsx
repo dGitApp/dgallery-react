@@ -33,17 +33,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
         }}
       >
         <img className="perfundo__image" src={asset.image_url} loading="lazy" />
-        <div className="rnftg-text-gray-200">
-          <div>{getAssetTitle(asset)}</div>
-          <div>{asset.collection.name}</div>
-        </div>
       </figure>
-      <a
-        href="#lightbox-untarget"
-        className="perfundo__close perfundo__control"
-      >
-        Close
-      </a>
       <a
         className="perfundo__prev perfundo__control"
         onClick={(evt) => {
