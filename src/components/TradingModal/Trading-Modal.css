@@ -21,7 +21,7 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(24, 24, 24, 0.877);
   }
   .perfundo__overlay:target,
   .perfundo__overlay.is-active {
@@ -29,11 +29,6 @@
     /* [1] */
   }
   
-  .trading-container{
-    width: auto;
-    background-color: red;
-    padding: 5px;
-  }
   
 
   /**
@@ -41,25 +36,58 @@
  * 2. Trigger loading of the full sized image when the lightbox is opened.
  */
 .perfundo__figure {
-    display: none;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-content: center;
+    border-radius: 40px;
+    border: 3px solid rgba(24, 24, 24, 0.555);
+    padding: 6px;
+    background-color: rgba(26, 26, 26, 0.945);
     /* [1] */
-    margin: 1.5em;
+    margin: 2em;
   }
   :target > .perfundo__figure,
   .is-active > .perfundo__figure {
     display: block;
     /* [2] */
   }
+
+.perfundo__figtitle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
+    color: rgba(255, 255, 255, 0.712);
+    align-items: center;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
   
-  .perfundo__figcaption {
+.perfundo__figcaption {
+    position: relative;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
     color: #fff;
-  }
+    align-items: center;
+}
   
   /**
    * 1. Make the image container responsive.
    */
-  .perfundo__image {
+.perfundo__image {
+    border-radius: 35px;
+    border: 1px solid rgba(0, 0, 0, 0.767);
     max-width: 100%;
     /* [1] */
-  }
+}
   
+.perfundo__inputbox {
+  display: flex;
+  width: fit-content;
+}
