@@ -19,7 +19,7 @@ const Template: Story<NftGalleryProps> = (args) => <NftGallery {...args} />;
 export const defaultView = Template.bind({});
 
 defaultView.args = {
-  ownerAddress: '0xA83e5c7977151cfa9a86b840e0F4299C6288f63a',
+  ownerAddress: '0x97927731FCdB42C6961b36856eFdF42193388e6B',
   darkMode: true
 } as NftGalleryProps;
 
@@ -27,6 +27,6 @@ export const Inline = Template.bind({});
 
 Inline.args = { 
     isInline: true,
-    ownerAddress: '0xA83e5c7977151cfa9a86b840e0F4299C6288f63a'
+    ownerAddress: '0x97927731FCdB42C6961b36856eFdF42193388e6B'
 } as NftGalleryProps;
 

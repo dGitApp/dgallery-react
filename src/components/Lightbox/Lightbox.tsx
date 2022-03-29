@@ -1,6 +1,5 @@
 import React from 'react';
 import { OpenseaAsset } from '../../types/OpenseaAsset';
-import { getAssetTitle } from '../../utils';
 
 import './perfundo-lightbox.css';
 

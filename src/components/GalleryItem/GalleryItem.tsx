@@ -3,6 +3,7 @@ import { NftGalleryProps } from '../../NftGallery';
 import { OpenseaAsset } from '../../types/OpenseaAsset';
 import { getAssetTitle, joinClassNames } from '../../utils';
 import { Lightbox } from '../Lightbox/Lightbox';
+import { TradingModal } from '../TradingModal/TradingModal';
 
 import './gallery-item.css';
 
@@ -21,7 +22,7 @@ export interface GalleryItemProps {
   asset: OpenseaAsset;
   index: number;
   metadataIsVisible: NftGalleryProps['metadataIsVisible'];
-  transferModeOn: NftGalleryProps['transferModeOn']
+  hasTransferMode: NftGalleryProps['hasTransferMode']
   hasLightbox: NftGalleryProps['hasLightbox'];
   setLightboxIndex: (nextIndex: number) => void;
   increaseLightboxIndex: () => void;
@@ -35,7 +36,7 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
   asset,
   index,
   metadataIsVisible,
-  transferModeOn,
+  hasTransferMode,
   hasLightbox,
   setLightboxIndex,
   increaseLightboxIndex,
@@ -103,15 +104,18 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
             />
           )
         }
-      <div className='rnftg-item__img-wrapper'>
-        <a
-          className="rnftg-no-underline rnftg-text-black dark:rnftg-text-gray-200"
-          onClick={() => setLightboxIndex(index)}
-          href={`#lightbox-${index}`}
-        >
-          {renderAssetMedia()}
-        </a>
+
+      <div style = {imgContainerStyle} className='rnftg-item__img-wrapper'>
+         <a
+            className="rnftg-no-underline rnftg-text-black dark:rnftg-text-gray-200"
+            onClick={() => setLightboxIndex(index)}
+            href={`#lightbox-${index}`}
+          >
+           {renderAssetMedia()}
+          </a>
+
       </div>
+
       {metadataIsVisible && 
           <div className='rnftg-item-title rnftg-break-words rnftg-truncate rnftg-text-lg rnftg-font-semibold rnftg-text-gray-200'> 
             {hasExternalLinks ? (
@@ -120,18 +124,20 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
             }
           </div>
         }
-      {transferModeOn && 
-        <div>
-
-        </div>
-      }
       
-      {hasLightbox && (
+      {hasLightbox && hasTransferMode === false && (
         <Lightbox
           index={index}
           asset={asset}
           increaseLightboxIndex={increaseLightboxIndex}
           decreaseLightboxIndex={decreaseLightboxIndex}
+        />
+      )}
+
+      {hasTransferMode && (
+        <TradingModal
+          index={index}
+          asset={asset}
         />
       )}
     </article>

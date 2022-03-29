@@ -40,7 +40,7 @@ export interface NftGalleryProps {
    *  default to 'true'
    */
 
-   transferModeOn?: boolean;
+   hasTransferMode?: boolean;
 
   /**
    * Display gallery in dark mode.
@@ -111,7 +111,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({
   openseaApiKey = '',
   darkMode = false,
   metadataIsVisible = true,
-  transferModeOn = true,
+  hasTransferMode = true,
   showcaseMode = false,
   showcaseItemIds,
   hasLightbox = true,
@@ -294,7 +294,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({
                       index={index}
                       asset={asset}
                       metadataIsVisible={metadataIsVisible}
-                      transferModeOn = {transferModeOn}
+                      hasTransferMode = {hasTransferMode}
                       hasLightbox={hasLightbox}
                       setLightboxIndex={setLightboxIndex}
                       increaseLightboxIndex={increaseLightboxIndex}
