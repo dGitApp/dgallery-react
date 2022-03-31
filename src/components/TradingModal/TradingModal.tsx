@@ -1,18 +1,58 @@
-import React, { useState } from 'react';
+import React, { ProviderProps, useState } from 'react';
 import './Trading-Modal.css'
 import { OpenseaAsset } from '../../types/OpenseaAsset';
 import {MdSell} from 'react-icons/md'
+import { NftSwapV4, SwappableNftV4 } from '@traderxyz/nft-swap-sdk';
+import { providers } from "ethers";
+
 
 export interface TradingModalProps {
     asset: OpenseaAsset;
     index: number;
+    provider: providers.Web3Provider;
 }
 
 export const TradingModal: React.FC<TradingModalProps> = ({
     asset,
-    index
+    index,
+    provider
 }) => {
+
     const [price, setPrice] = useState('')
+
+    async function makeTrade() {
+      
+      const NFTtoTradeMaker: SwappableNftV4 = 
+      {
+        tokenAddress: asset.asset_contract.address, // NFT contract address
+        tokenId: asset.token_id,   // Token Id NFT
+        type: "ERC721",   // Must be one of 'ERC20', 'ERC721', or 'ERC1155'
+      }
+
+      const ETHtoTradeTaker = {
+        tokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+        amount: '1e18',
+        type: 'ERC20',
+      }
+
+
+      const signer = provider.getSigner()
+      const walletAddressMaker = await signer.getAddress()
+      const CHAIN_ID = await signer.getChainId()
+      const nftSwapSdk = new NftSwapV4(provider, signer, CHAIN_ID);
+
+      const order = nftSwapSdk.buildOrder(
+        NFTtoTradeMaker,
+        ETHtoTradeTaker,
+        'sell',
+        walletAddressMaker
+      );
+    }
+
+    function handleTransaction() {
+      makeTrade()
+    }
+
     return (
         <div
         id={`lightbox-${index}`}
@@ -38,7 +78,7 @@ export const TradingModal: React.FC<TradingModalProps> = ({
                         step= '0.01'
                         onChange={(e)=>{setPrice(e.target.value)}}
                 />
-                <MdSell size = {30} onClick={() => alert({price})}  style={{cursor:'pointer', margin: 5}}/>
+                <MdSell size = {30} onClick={handleTransaction}  style={{cursor:'pointer', margin: 5}}/>
               </div>              
         </figure>
       </div>
