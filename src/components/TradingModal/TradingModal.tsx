@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Trading-Modal.css'
 import { OpenseaAsset } from '../../types/OpenseaAsset';
+import {MdSell} from 'react-icons/md'
 
 export interface TradingModalProps {
     asset: OpenseaAsset;
@@ -12,7 +13,6 @@ export const TradingModal: React.FC<TradingModalProps> = ({
     index
 }) => {
     const [price, setPrice] = useState('')
-
     return (
         <div
         id={`lightbox-${index}`}
@@ -30,13 +30,15 @@ export const TradingModal: React.FC<TradingModalProps> = ({
         >
               <div className="perfundo__figtitle"> Make Offer </div>
               <img className="perfundo__image" src={asset.image_url} loading="lazy" />
-              <div className='perfundo__figcaption'> 
+              <div className='perfundo__figcaption'>
                 <input  className='perfundo__inputbox' 
                         placeholder='Amount...'
-                        value={price}
-                        onChange={()=>{setPrice()}}
+                        type = 'number'
+                        min = '0'
+                        step= '0.01'
+                        onChange={(e)=>{setPrice(e.target.value)}}
                 />
-                <button onClick={() => alert('send request')} className='perfundo__inputbox'> Send </button>
+                <MdSell size = {30} onClick={() => alert({price})}  style={{cursor:'pointer', margin: 5}}/>
               </div>              
         </figure>
       </div>

@@ -89,5 +89,12 @@
   
 .perfundo__inputbox {
   display: flex;
-  width: fit-content;
+  min-width: 300px;
+  background-color: rgba(67, 67, 67, 0.659);
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  height: 18px;
+  color: rgb(192, 192, 192);
 }
