@@ -4,6 +4,8 @@ import { OpenseaAsset } from '../../types/OpenseaAsset';
 import { getAssetTitle, joinClassNames } from '../../utils';
 import { Lightbox } from '../Lightbox/Lightbox';
 import { TradingModal } from '../TradingModal/TradingModal';
+import { providers } from "ethers";
+
 
 import './gallery-item.css';
 
@@ -21,6 +23,7 @@ const ExternalLink: React.FC<{ href: string }> = ({ href, children }) => (
 export interface GalleryItemProps {
   asset: OpenseaAsset;
   index: number;
+  WalletProvider: providers.Web3Provider;
   metadataIsVisible: NftGalleryProps['metadataIsVisible'];
   hasTransferMode: NftGalleryProps['hasTransferMode']
   hasLightbox: NftGalleryProps['hasLightbox'];
@@ -35,6 +38,7 @@ export interface GalleryItemProps {
 export const GalleryItem: React.FC<GalleryItemProps> = ({
   asset,
   index,
+  WalletProvider,
   metadataIsVisible,
   hasTransferMode,
   hasLightbox,
@@ -138,6 +142,7 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
         <TradingModal
           index={index}
           asset={asset}
+          provider = {WalletProvider}
         />
       )}
     </article>
