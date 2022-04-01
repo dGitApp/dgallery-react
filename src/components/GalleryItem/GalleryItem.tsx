@@ -23,7 +23,7 @@ const ExternalLink: React.FC<{ href: string }> = ({ href, children }) => (
 export interface GalleryItemProps {
   asset: OpenseaAsset;
   index: number;
-  WalletProvider: providers.Web3Provider;
+  WalletProvider: providers.Web3Provider | undefined;
   metadataIsVisible: NftGalleryProps['metadataIsVisible'];
   hasTransferMode: NftGalleryProps['hasTransferMode']
   hasLightbox: NftGalleryProps['hasLightbox'];
@@ -138,7 +138,7 @@ export const GalleryItem: React.FC<GalleryItemProps> = ({
         />
       )}
 
-      {hasTransferMode && (
+      {hasTransferMode && WalletProvider !== undefined && (
         <TradingModal
           index={index}
           asset={asset}

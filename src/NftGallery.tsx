@@ -10,7 +10,7 @@ import {
   OPENSEA_API_OFFSET,
   resolveEnsDomain,
 } from './api';
-
+import { providers } from "ethers";
 import './styles/tailwind.css';
 import { SkeletonCard } from './components/SkeletonCard';
 import { useLightboxNavigation } from './hooks/useLightboxNavigation';
@@ -28,6 +28,10 @@ export interface NftGalleryProps {
    */
   openseaApiKey?: string;
 
+    /**
+     * wallet provider to validate/create the transaction
+   */
+  walletProvider?: providers.Web3Provider | undefined;
   /**
    * Display asset metadata underneath the NFT.
    * Defaults to `true`.
@@ -109,6 +113,7 @@ export interface NftGalleryProps {
 export const NftGallery: React.FC<NftGalleryProps> = ({
   ownerAddress = '',
   openseaApiKey = '',
+  walletProvider = undefined,
   darkMode = false,
   metadataIsVisible = true,
   hasTransferMode = true,
@@ -293,6 +298,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({
                       key={asset.id}
                       index={index}
                       asset={asset}
+                      WalletProvider={walletProvider}
                       metadataIsVisible={metadataIsVisible}
                       hasTransferMode = {hasTransferMode}
                       hasLightbox={hasLightbox}

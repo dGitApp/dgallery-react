@@ -18,10 +18,9 @@ export const TradingModal: React.FC<TradingModalProps> = ({
     provider
 }) => {
 
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState<number>(0)
 
     async function makeTrade() {
-      
       const NFTtoTradeMaker: SwappableAsset = 
       {
         tokenAddress: asset.asset_contract.address, // NFT contract address
@@ -31,10 +30,9 @@ export const TradingModal: React.FC<TradingModalProps> = ({
 
       const ETHtoTradeTaker: SwappableAsset = {
         tokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-        amount: '1e18',
+        amount: String(price*1e18),
         type: 'ERC20',
       }
-
 
       const signer = provider.getSigner()
       const walletAddressMaker = await signer.getAddress()
@@ -44,16 +42,18 @@ export const TradingModal: React.FC<TradingModalProps> = ({
       const order = nftSwapSdk.buildOrder(
         NFTtoTradeMaker,
         ETHtoTradeTaker,
-        walletAddressMaker
+        walletAddressMaker,
+        { 
+          taker: '0xa5A44E8e1E6F09dA3E69EA77FBfd1c56835074Fa'
+        }
       );
-
       const signedOrder = await nftSwapSdk.signOrder(order);
       const postedOrder = await nftSwapSdk.postOrder(signedOrder, String(CHAIN_ID));
-
+      console.log(postedOrder)
     }
 
     function handleTransaction() {
-      makeTrade()
+        makeTrade()
     }
 
     return (
@@ -79,7 +79,7 @@ export const TradingModal: React.FC<TradingModalProps> = ({
                         type = 'number'
                         min = '0'
                         step= '0.01'
-                        onChange={(e)=>{setPrice(e.target.value)}}
+                        onChange={(event)=>{setPrice(Number(event.target.value))}}
                 />
                 <MdSell size = {30} onClick={handleTransaction}  style={{cursor:'pointer', margin: 5}}/>
               </div>              
