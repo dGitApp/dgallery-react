@@ -1,8 +1,8 @@
-import React, { ProviderProps, useState } from 'react';
+import React, { useState } from 'react';
 import './Trading-Modal.css'
 import { OpenseaAsset } from '../../types/OpenseaAsset';
 import {MdSell} from 'react-icons/md'
-import { NftSwapV4, SwappableNftV4 } from '@traderxyz/nft-swap-sdk';
+import { NftSwapV4, SwappableAsset } from '@traderxyz/nft-swap-sdk';
 import { providers } from "ethers";
 
 
@@ -22,14 +22,14 @@ export const TradingModal: React.FC<TradingModalProps> = ({
 
     async function makeTrade() {
       
-      const NFTtoTradeMaker: SwappableNftV4 = 
+      const NFTtoTradeMaker: SwappableAsset = 
       {
         tokenAddress: asset.asset_contract.address, // NFT contract address
         tokenId: asset.token_id,   // Token Id NFT
         type: "ERC721",   // Must be one of 'ERC20', 'ERC721', or 'ERC1155'
       }
 
-      const ETHtoTradeTaker = {
+      const ETHtoTradeTaker: SwappableAsset = {
         tokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
         amount: '1e18',
         type: 'ERC20',
@@ -44,9 +44,12 @@ export const TradingModal: React.FC<TradingModalProps> = ({
       const order = nftSwapSdk.buildOrder(
         NFTtoTradeMaker,
         ETHtoTradeTaker,
-        'sell',
         walletAddressMaker
       );
+
+      const signedOrder = await nftSwapSdk.signOrder(order);
+      const postedOrder = await nftSwapSdk.postOrder(signedOrder, String(CHAIN_ID));
+
     }
 
     function handleTransaction() {
