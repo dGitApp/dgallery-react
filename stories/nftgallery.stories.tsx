@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
     controls: { expanded: true },
-  },
+  }
 };
 
 export default meta;
@@ -19,14 +19,16 @@ const Template: Story<NftGalleryProps> = (args) => <NftGallery {...args} />;
 export const defaultView = Template.bind({});
 
 defaultView.args = {
+  hasTransferMode: true,
   ownerAddress: '0x97927731FCdB42C6961b36856eFdF42193388e6B',
-  darkMode: true
+  darkMode: true,
 } as NftGalleryProps;
 
 export const Inline = Template.bind({});
 
 Inline.args = { 
     isInline: true,
+    hasTransferMode: true,
     ownerAddress: '0x97927731FCdB42C6961b36856eFdF42193388e6B'
 } as NftGalleryProps;
 
