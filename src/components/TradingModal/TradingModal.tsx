@@ -53,7 +53,7 @@ export const TradingModal: React.FC<TradingModalProps> = ({
     }
 
     function handleTransaction() {
-        makeTrade()
+      makeTrade()
     }
 
     return (
